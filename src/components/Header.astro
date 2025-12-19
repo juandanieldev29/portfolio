@@ -9,8 +9,10 @@ const { siteLogo, navLinks } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6"
+  id="site-header"
+  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6 transition-colors duration-300"
 >
+  <div class="header-inner w-full flex items-center justify-between">
   <a href="/" aria-label="Home link">
     <Image
       class="rounded-full"
@@ -50,6 +52,7 @@ const { siteLogo, navLinks } = Astro.props;
       }
     </ul>
   </nav>
+  </div>
 </header>
 
 <script>
@@ -91,14 +94,35 @@ const { siteLogo, navLinks } = Astro.props;
     observer.observe(section);
   });
 
+  // Add glassmorphism to header after the hero specialty scrolls out
+  const headerEl = document.querySelector('#site-header');
+  const heroSpecialty = document.querySelector('#hero-specialty');
+  let heroObserver;
+
+  if (heroSpecialty && headerEl) {
+    heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          headerEl.classList.remove('glass');
+        } else {
+          headerEl.classList.add('glass');
+        }
+      });
+    }, { threshold: 0 });
+
+    heroObserver.observe(heroSpecialty);
+  }
+
   // Cleanup observer
   document.onvisibilitychange = () => {
     if (document.visibilityState === "hidden") {
       observer.disconnect();
+      if (heroObserver) heroObserver.disconnect();
     } else {
       document.querySelectorAll("section").forEach((section) => {
         observer.observe(section);
       });
+      if (heroSpecialty && heroObserver) heroObserver.observe(heroSpecialty);
     }
   };
 </script>
@@ -107,5 +131,53 @@ const { siteLogo, navLinks } = Astro.props;
   header {
     animation-timeline: scroll();
     animation-range: 0 650px;
+  }
+
+  /* Glassmorphism style applied when the hero is scrolled out.
+     Use pseudo-elements so the glass background spans the full viewport
+     while keeping the header content centered with margins. */
+  header {
+    /* keep sticky positioning from Tailwind instead of overriding it */
+    position: sticky;
+    top: 0;
+  }
+
+  .header-inner {
+    position: relative;
+    z-index: 10; /* keep content above the glass background */
+    width: 100%;
+  }
+
+  header.glass {
+    background-color: transparent; /* use pseudo elements for visual effect */
+  }
+
+  header.glass::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header.glass::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.6);
+    pointer-events: none;
+    z-index: 0;
   }
 </style>
