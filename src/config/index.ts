@@ -44,7 +44,7 @@ export const SITE_CONTENT: SiteContent = {
     {
       company: "Growth Acceleration Partners",
       position: "Full Stack Software Developer",
-      startDate: "Feb 2023",
+      startDate: "February 2023",
       endDate: "May 2024",
       summary: [
         "Full stack web development with expertise in React, Redux, TypeScript, and NodeJS.",
@@ -60,7 +60,7 @@ export const SITE_CONTENT: SiteContent = {
       company: "Intel",
       position: "Full Stack Software Developer",
       startDate: "July 2021",
-      endDate: "Feb 2023",
+      endDate: "February 2023",
       summary: [
         "Led the migration of applications from AngularJS to React, enhancing performance and maintainability.",
         "Rearchitected legacy desktop applications to web applications using Angular, increasing accessibility and modernizing user interfaces.",
@@ -74,8 +74,8 @@ export const SITE_CONTENT: SiteContent = {
     {
       company: "Cargill",
       position: "Full Stack Software Developer",
-      startDate: "Apr 2020",
-      endDate: "Jul 2021",
+      startDate: "April 2020",
+      endDate: "July 2021",
       summary: [
         "Increased development efficiency by creating reusable React components, reducing code duplication.",
         "Write tests for both the Net Core and the React application.",
@@ -95,4 +95,3 @@ export const SITE_CONTENT: SiteContent = {
   },
 };
 
-// #5755ff
