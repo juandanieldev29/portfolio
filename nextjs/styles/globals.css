@@ -110,3 +110,49 @@ html, body {
 #hero {
   min-height: calc(100vh - var(--header-height, 96px));
 }
+
+/* Header glassmorphism (migrated from Astro Header) */
+header {
+  /* keep sticky positioning from Tailwind instead of overriding it */
+  position: sticky;
+  top: 0;
+}
+
+.header-inner {
+  position: relative;
+  z-index: 10; /* keep content above the glass background */
+  width: 100%;
+}
+
+header.glass {
+  background-color: transparent; /* use pseudo elements for visual effect */
+}
+
+header.glass::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+header.glass::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(2, 6, 23, 0.6);
+  pointer-events: none;
+  z-index: 0;
+}

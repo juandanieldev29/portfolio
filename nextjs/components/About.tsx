@@ -72,7 +72,7 @@ export default function About({ description, image }: AboutProps & { name?: stri
   return (
     <Section text="About Me" href="about">
       <div className="flex flex-col items-center gap-12 md:flex-row md:gap-8">
-        <p className="reveal fade-up duration-2 delay-2 w-auto text-base text-neutral md:pr-5" dangerouslySetInnerHTML={{ __html: description }} />
+        <p className="reveal fade-up duration-2 delay-2 w-auto text-base text-neutral md:pr-5">{description}</p>
         <div className="h-80 w-64 flex-shrink-0 rotate-[5deg] bg-white p-4 md:rotate-[7deg]">
           <img src={image} alt="about image" width={260} height={260} className="object-cover reveal fade-up duration-2 delay-2" />
         </div>

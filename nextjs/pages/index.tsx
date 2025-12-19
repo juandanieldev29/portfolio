@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -9,6 +9,26 @@ import { SITE_CONFIG, SITE_CONTENT } from '../src/config';
 
 export default function Home() {
   const { title, description, siteLogo, navLinks, lang, author, socialLinks, socialImage, canonicalURL } = SITE_CONFIG as any;
+
+  useEffect(() => {
+    const setHeaderHeightVar = () => {
+      const header = document.querySelector('#site-header');
+      if (!header) return;
+      const h = Math.ceil((header as HTMLElement).getBoundingClientRect().height) + 'px';
+      document.documentElement.style.setProperty('--header-height', h);
+    };
+
+    setHeaderHeightVar();
+    window.addEventListener('DOMContentLoaded', setHeaderHeightVar);
+    window.addEventListener('load', setHeaderHeightVar);
+    window.addEventListener('resize', setHeaderHeightVar);
+
+    return () => {
+      window.removeEventListener('DOMContentLoaded', setHeaderHeightVar);
+      window.removeEventListener('load', setHeaderHeightVar);
+      window.removeEventListener('resize', setHeaderHeightVar);
+    };
+  }, []);
 
   return (
     <div className="bg-black font-sans">
@@ -42,17 +62,7 @@ export default function Home() {
 
       <Footer author={author} socialLinks={socialLinks} />
 
-      <script dangerouslySetInnerHTML={{ __html: `
-        const setHeaderHeightVar = () => {
-          const header = document.querySelector('#site-header');
-          if (!header) return;
-          const h = Math.ceil(header.getBoundingClientRect().height) + 'px';
-          document.documentElement.style.setProperty('--header-height', h);
-        };
-        window.addEventListener('DOMContentLoaded', setHeaderHeightVar);
-        window.addEventListener('load', setHeaderHeightVar);
-        window.addEventListener('resize', setHeaderHeightVar);
-      `}} />
+      
     </div>
   );
 }
