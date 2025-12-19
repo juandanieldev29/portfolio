@@ -54,6 +54,17 @@ html, body {
   font-family: var(--font-sans);
 }
 
+/* Smooth scrolling for in-page navigation, but respect reduced motion preference */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -111,6 +122,11 @@ html, body {
   min-height: calc(100vh - var(--header-height, 96px));
 }
 
+/* Ensure in-page anchors are not hidden behind the sticky header */
+section {
+  scroll-margin-top: var(--header-height, 96px);
+}
+
 /* Header glassmorphism (migrated from Astro Header) */
 header {
   /* keep sticky positioning from Tailwind instead of overriding it */
@@ -130,29 +146,72 @@ header.glass {
 
 header.glass::before {
   content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  /* use fixed so the glass spans the full viewport width regardless of header max-width */
+  position: fixed;
+  left: 0;
   top: 0;
   width: 100vw;
-  height: 100%;
+  /* height driven by --header-height (set at runtime) so the glass matches header height */
+  height: var(--header-height, 96px);
   background-color: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   pointer-events: none;
   z-index: 0;
+  animation: glass-bg 420ms cubic-bezier(.2,.9,.2,1) both;
 }
 
 header.glass::after {
   content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  left: 0;
   top: 0;
   width: 100vw;
-  height: 100%;
+  height: var(--header-height, 96px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 8px 32px rgba(2, 6, 23, 0.6);
   pointer-events: none;
   z-index: 0;
+  animation: glass-border 420ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+@keyframes glass-bg {
+  from {
+    background-color: rgba(255,255,255,0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    background-color: rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glass-border {
+  from {
+    border-color: rgba(255,255,255,0);
+    box-shadow: 0 2px 8px rgba(2,6,23,0.12);
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    border-color: rgba(255,255,255,0.06);
+    box-shadow: 0 8px 32px rgba(2, 6, 23, 0.6);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Disable glass animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  header.glass::before,
+  header.glass::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
