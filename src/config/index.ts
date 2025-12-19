@@ -1,6 +1,4 @@
-import type { SiteConfig, SiteContent } from "../types";
-
-export const SITE_CONFIG: SiteConfig = {
+export const SITE_CONFIG = {
   title: "Juan Daniel Vargas Cordero — Full Stack Developer",
   author: "Juan Daniel Vargas Cordero",
   description:
@@ -19,7 +17,7 @@ export const SITE_CONFIG: SiteConfig = {
   canonicalURL: "https://astro-zen.vercel.app",
 };
 
-export const SITE_CONTENT: SiteContent = {
+export const SITE_CONTENT = {
   hero: {
     name: "Juan Daniel Vargas Cordero",
     specialty: "Full Stack Developer",
@@ -94,4 +92,3 @@ export const SITE_CONTENT: SiteContent = {
     image: "/juan-big.jpg",
   },
 };
-

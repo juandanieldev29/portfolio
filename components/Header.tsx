@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import MenuIcon from './icons/Menu';
-import type { HeaderProps } from '../src/types';
+import type { HeaderProps } from '@types';
 
 export default function Header({ siteLogo, navLinks }: HeaderProps) {
   useEffect(() => {

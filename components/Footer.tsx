@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SiteConfig } from '../src/types';
+import type { SiteConfig } from '@types';
 
 export default function Footer({ author, socialLinks }: Pick<SiteConfig, 'author' | 'socialLinks'>) {
   const currentYear = new Date().getFullYear();

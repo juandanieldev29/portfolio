@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import Experience from '../components/Experience';
-import About from '../components/About';
-import Footer from '../components/Footer';
-import { SITE_CONFIG, SITE_CONTENT } from '../src/config';
+import Header from '@components/Header';
+import Hero from '@components/Hero';
+import Experience from '@components/Experience';
+import About from '@components/About';
+import Footer from '@components/Footer';
+import { SITE_CONFIG, SITE_CONTENT } from '@config';
 
 export default function Home() {
   const { title, description, siteLogo, navLinks, lang, author, socialLinks, socialImage, canonicalURL } = SITE_CONFIG as any;

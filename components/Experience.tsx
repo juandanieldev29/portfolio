@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Section from './Section';
-import type { ExperienceProps as Exp } from '../src/types';
+import type { ExperienceProps as Exp } from '@types';
 
 export default function Experience({ experience }: { experience: Exp[] }) {
   useEffect(() => {

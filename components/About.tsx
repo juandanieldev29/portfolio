@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Section from './Section';
-import type { AboutProps } from '../src/types';
+import type { AboutProps } from '@types';
 
 export default function About({ description, image }: AboutProps & { name?: string }) {
   useEffect(() => {
