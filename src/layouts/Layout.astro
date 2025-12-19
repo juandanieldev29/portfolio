@@ -48,5 +48,19 @@ const ogImgUrl = canonicalURL + socialImage;
       <slot />
     </main>
     <Footer author={author} socialLinks={socialLinks} />
+    <script>
+      // Keep a CSS variable with the header height so sections can size to remaining viewport
+      const setHeaderHeightVar = () => {
+        const header = document.querySelector('#site-header');
+        if (!header) return;
+        const h = Math.ceil(header.getBoundingClientRect().height) + 'px';
+        document.documentElement.style.setProperty('--header-height', h);
+      };
+
+      // Set initially and keep in sync on load/resize
+      window.addEventListener('DOMContentLoaded', setHeaderHeightVar);
+      window.addEventListener('load', setHeaderHeightVar);
+      window.addEventListener('resize', setHeaderHeightVar);
+    </script>
   </body>
 </html>

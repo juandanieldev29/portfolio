@@ -24,6 +24,12 @@ const { name, specialty, summary, email } = Astro.props;
 @media (prefers-reduced-motion: reduce) {
   .fade-up { animation: none; opacity: 1; transform: none; }
 }
+
+/* Make hero take the remainder of the viewport after the header. The
+   CSS variable --header-height is set in Layout.astro via script. */
+#hero {
+  min-height: calc(100vh - var(--header-height, 96px));
+}
 </style>
 
 <section class="py-24 md:py-32" id="hero">
