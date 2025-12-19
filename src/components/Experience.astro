@@ -11,8 +11,8 @@ const { experience } = Astro.props;
 
 <Section text="Work Experience" href="experience">
   {
-    experience.map(({ company, position, startDate, endDate, summary }) => (
-      <div class="mb-10">
+    experience.map(({ company, position, startDate, endDate, summary }, i) => (
+      <div class="mb-10 reveal" style={`transition-delay: ${i * 80}ms`}>
         <h3 class="mb-1.5 font-serif text-2xl font-semibold text-white">
           {company}
         </h3>
@@ -39,3 +39,35 @@ const { experience } = Astro.props;
     ))
   }
 </Section>
+
+<script type="module" client:idle>
+  (() => {
+    const run = () => {
+      const els = Array.from(document.querySelectorAll('.reveal'));
+      if (!els.length) return;
+
+      // IntersectionObserver `rootMargin` only accepts pixels or percent.
+      // Convert desired 20vh to pixels at runtime so it's valid in all browsers.
+      const vhOffsetPx = Math.round(window.innerHeight * 0.2);
+      const rootMargin = `0px 0px -${vhOffsetPx}px 0px`;
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0, rootMargin });
+
+      els.forEach((el) => observer.observe(el));
+    };
+
+    if ('requestIdleCallback' in window) {
+      // Use idle callback to avoid blocking paint
+      window.requestIdleCallback(run);
+    } else {
+      setTimeout(run, 200);
+    }
+  })();
+</script>
