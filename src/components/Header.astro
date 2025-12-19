@@ -73,24 +73,35 @@ const { siteLogo, navLinks } = Astro.props;
   });
 
   // Update navigation based on scroll position with Intersection Observer
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-white", "md:after:opacity-100");
-            } else {
-              item.classList.remove("text-white", "md:after:opacity-100");
-            }
-          });
-        }
-      });
-    },
-    { threshold: 0.5 },
-  );
+  // Use a centered rootMargin so very tall sections (longer than viewport)
+  // still become "active" when their central area is in view.
+  const sectionObserverOptions = {
+    root: null,
+    // center the observation area vertically in the viewport
+    rootMargin: '-45% 0px -45% 0px',
+    threshold: 0,
+  };
 
-  document.querySelectorAll("section").forEach((section) => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      // Only consider sections that have an id (so nav links can match)
+      if (!entry.target.id) return;
+
+      if (entry.isIntersecting) {
+        navItems.forEach((item) => {
+          // match nav href like "#section-id"
+          if (item.getAttribute('href') === `#${entry.target.id}`) {
+            item.classList.add('text-white', 'md:after:opacity-100');
+          } else {
+            item.classList.remove('text-white', 'md:after:opacity-100');
+          }
+        });
+      }
+    });
+  }, sectionObserverOptions);
+
+  // Observe only sections with an id to avoid observing unrelated sections
+  document.querySelectorAll('section[id]').forEach((section) => {
     observer.observe(section);
   });
 

@@ -43,12 +43,16 @@ const { experience } = Astro.props;
 <script type="module" client:idle>
   (() => {
     const run = () => {
-      const els = Array.from(document.querySelectorAll('.reveal'));
+      const section = document.getElementById('experience');
+      if (!section) return; // nothing to do if the experience section is missing
+
+      // Only select `.reveal` elements inside the #experience section
+      const els = Array.from(section.querySelectorAll('.reveal'));
       if (!els.length) return;
 
       // IntersectionObserver `rootMargin` only accepts pixels or percent.
       // Convert desired 20vh to pixels at runtime so it's valid in all browsers.
-      const vhOffsetPx = Math.round(window.innerHeight * 0.2);
+      const vhOffsetPx = Math.round(window.innerHeight * 0);
       const rootMargin = `0px 0px -${vhOffsetPx}px 0px`;
 
       const observer = new IntersectionObserver((entries, obs) => {
