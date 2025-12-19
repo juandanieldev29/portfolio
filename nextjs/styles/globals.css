@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-serif: "Gabarito Variable", ui-serif, serif;
+
+  --color-primary: #2563eb;
+  --color-neutral: #94a3b8;
+  --color-white: #e2e8f0;
+  --color-black: #0e141b;
+
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.625rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.813rem;
+}
+
+/* Use CSS variables as the default page background and text color so
+   components that reference the variables (or Tailwind classes) render
+   consistently with the original design. */
+html, body {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition: opacity 1000ms cubic-bezier(.2,.9,.2,1), transform 1000ms cubic-bezier(.2,.9,.2,1), filter 1000ms cubic-bezier(.2,.9,.2,1);
+  will-change: transform, opacity, filter;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none !important;
+    filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+:root { --fade-duration: 1400ms; --fade-easing: cubic-bezier(.2,.9,.3,1); --fade-offset: 25px; }
+.fade-up {
+  opacity: 0;
+  transform: translateY(var(--fade-offset));
+  animation: fadeUp var(--fade-duration) var(--fade-easing) forwards;
+}
+.fade-up.delay-1 { animation-delay: 500ms; }
+.fade-up.delay-2 { animation-delay: 700ms; }
+.fade-up.duration-1 { animation-duration: 1600ms; }
+.fade-up.duration-2 { animation-duration: 2200ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(var(--fade-offset)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; opacity: 1; transform: none; }
+}
