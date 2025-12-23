@@ -8,7 +8,29 @@ import Footer from '@components/Footer';
 import { SITE_CONFIG, SITE_CONTENT } from '@config';
 
 export default function Home() {
-  const { title, description, siteLogo, navLinks, lang, author, socialLinks, socialImage, canonicalURL } = SITE_CONFIG as any;
+  const { title, description, siteLogo, navLinks, lang, author, socialLinks, socialImage, canonicalURL, keywords } = SITE_CONFIG as any;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "url": canonicalURL,
+        "name": title,
+        "description": description,
+        "publisher": {
+          "@type": "Person",
+          "name": author
+        }
+      },
+      {
+        "@type": "Person",
+        "name": author,
+        "url": canonicalURL,
+        "sameAs": socialLinks ? Object.values(socialLinks) : []
+      }
+    ]
+  };
 
   useEffect(() => {
     const setHeaderHeightVar = () => {
@@ -44,6 +66,13 @@ export default function Home() {
         <link rel="manifest" href="/site.webmanifest"></link>
         <title>{title}</title>
 
+        <link rel="canonical" href={canonicalURL} />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={keywords ?? ''} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={title} />
+        <meta property="og:locale" content={lang || 'en_US'} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalURL} />
@@ -54,6 +83,9 @@ export default function Home() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={canonicalURL + socialImage} />
+        <meta name="twitter:creator" content={socialLinks?.twitter || author} />
+
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Head>
 
       <Header siteLogo={siteLogo} navLinks={navLinks} />

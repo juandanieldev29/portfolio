@@ -2,8 +2,10 @@ export const SITE_CONFIG = {
   title: "Juan Daniel Vargas Cordero — Full Stack Developer",
   author: "Juan Daniel Vargas Cordero",
   description:
-    "Software Engineer based in Costa Rica. Experienced Full Stack Software Developer proficient in JavaScript, React, Node.js, and AWS.",
+    "Costa Rica–based Full Stack Software Engineer focused on building scalable, cloud-native web applications. Proficient in JavaScript, React, Node.js, and AWS; experienced with serverless architectures, API design, and performance optimization.",
   lang: "en",
+  keywords:
+    "Full Stack Developer, Full-Stack Developer, JavaScript, React, Node.js, AWS, Serverless, Cloud-native, API design, Performance optimization, Costa Rica",
   siteLogo: "/juan-small.jpg",
   navLinks: [
     { text: "Experience", href: "#experience" },
@@ -14,7 +16,7 @@ export const SITE_CONFIG = {
     { text: "Github", href: "https://github.com/juandanieldev29" },
   ],
   socialImage: "/zen-og.png",
-  canonicalURL: "https://www.jdev.app",
+  canonicalURL: "https://www.jdev.app/",
 };
 
 export const SITE_CONTENT = {
@@ -22,7 +24,7 @@ export const SITE_CONTENT = {
     name: "Juan Daniel Vargas Cordero",
     specialty: "Full Stack Developer",
     summary:
-      "Software Engineer based in Costa Rica. Experienced Full Stack Software Developer proficient in JavaScript, React, Node.js, and AWS.",
+      "Costa Rica–based Full Stack Developer building scalable, cloud-native web applications. Skilled in JavaScript, React, Node.js, and AWS; experienced in serverless design, API development, and performance tuning.",
   },
   experience: [
     {
@@ -87,7 +89,7 @@ export const SITE_CONTENT = {
     description: `
       Hi, I’m Juan Daniel Vargas, a seasoned Full Stack Software Developer with a strong focus on building scalable, high-performance web applications. With extensive experience across JavaScript, React, Node.js, and AWS, I thrive in designing and implementing robust solutions that bridge clean architecture with real-world business needs.
 
-      Over the years, I’ve worked on everything from modernizing legacy systems to developing cloud-native applications using serverless and containerized architectures. I’m passionate about clean code, performance optimization, and leveraging cloud technologies to deliver secure, reliable, and maintainable software that scales effortlessly.
+      Over the years, I’ve worked on everything from modernizing legacy systems to developing cloud-native applications using serverless and containerized architectures. I’m passionate about clean code, performance optimization, and leveraging cloud technologies to deliver secure, reliable, and maintainable software that scales.
     `,
     image: "/juan-big.jpg",
   },
