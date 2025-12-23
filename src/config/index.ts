@@ -16,7 +16,7 @@ export const SITE_CONFIG = {
     { text: "Github", href: "https://github.com/juandanieldev29" },
   ],
   socialImage: "/zen-og.png",
-  canonicalURL: "https://www.jdev.app/",
+  canonicalURL: "https://www.jdev.app",
 };
 
 export const SITE_CONTENT = {
